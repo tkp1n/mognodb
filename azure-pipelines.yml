@@ -1,0 +1,27 @@
+trigger:
+  tags:
+    include:
+    - '*'
+  branches:
+    exclude:
+    - '*'
+
+resources:
+- repo: self
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Docker Hub (tkp1n)'
+        repository: 'tkp1n/mongodb'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: $(Build.SourceBranchName)
