@@ -1,5 +1,6 @@
 #escape=`
-ARG MONGO_VERSION=3.4.4
+ARG OS_VERSION=1809
+ARG MONGO_VERSION=4.4.0
 ARG MONGO_HOME="C:\mongo"
 
 #### MONGODB INSTALLER
@@ -13,7 +14,7 @@ ENV MONGO_VERSION=${MONGO_VERSION} `
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN $url = ('http://downloads.mongodb.org/win32/mongodb-win32-x86_64-{0}.zip' -f $env:MONGO_VERSION); `
+RUN $url = ('https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-{0}.zip' -f $env:MONGO_VERSION); `
     Write-Host ('Downloading {0} ...' -f $url); `
     Invoke-WebRequest $url -OutFile 'C:\mongo.zip'; `
     `
@@ -26,7 +27,7 @@ RUN $url = ('http://downloads.mongodb.org/win32/mongodb-win32-x86_64-{0}.zip' -f
 
 #### FINAL IMAGE
 
-FROM mcr.microsoft.com/windows/nanoserver:1809
+FROM mcr.microsoft.com/windows/nanoserver:${OS_VERSION}
 
 ARG MONGO_VERSION
 ARG MONGO_HOME
