@@ -20,7 +20,7 @@ RUN $url = ('https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-{0}.zip' 
     `
     Write-Host 'Unzipping MongoDB ...'; `
     Expand-Archive -Path 'c:\mongo.zip' -DestinationPath C:\; `
-    Move-Item "mongodb-win32-x86_64-$env:MONGO_VERSION" $env:MONGO_HOME; `
+    Move-Item "mongodb-win32-x86_64-windows-$env:MONGO_VERSION" $env:MONGO_HOME; `
     `
     Write-Host 'Cleanup MongoDB installation ...'; `
     Remove-Item mongo.zip -Force
